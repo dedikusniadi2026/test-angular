@@ -25,7 +25,7 @@
           matInput
           [(ngModel)]="usernameFilter"
           (keyup)="applyFilter()"
-          placeholder="Search username...">
+          placeholder="Cari username...">
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
 
@@ -35,19 +35,8 @@
           matInput
           [(ngModel)]="emailFilter"
           (keyup)="applyFilter()"
-          placeholder="Search email...">
+          placeholder="Cari email...">
         <mat-icon matSuffix>email</mat-icon>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="filter-field page-size-field">
-        <mat-label>Per Page</mat-label>
-        <mat-select
-          [(value)]="pageSize"
-          (selectionChange)="changePageSize()">
-          <mat-option *ngFor="let size of pageSizeOptions" [value]="size">
-            {{ size }} rows
-          </mat-option>
-        </mat-select>
       </mat-form-field>
     </div>
   </div>
@@ -152,13 +141,16 @@
       <p class="empty-text">No employees found</p>
     </div>
 
-    <mat-paginator
-      [pageSize]="pageSize"
-      [pageSizeOptions]="pageSizeOptions"
-      [hidePageSize]="true"
-      showFirstLastButtons
-      class="table-paginator">
-    </mat-paginator>
+    <!-- Pagination Footer -->
+    <div class="paginator-footer">
+      <span class="paginator-info">{{ paginatorInfo }}</span>
+      <mat-paginator
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        showFirstLastButtons
+        class="table-paginator">
+      </mat-paginator>
+    </div>
   </div>
 
 </div>

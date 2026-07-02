@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -82,6 +82,8 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
   emailFilter = '';
   pageSize = DEFAULT_PAGE_SIZE;
 
+  paginatorInfo = '';
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -91,7 +93,11 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.connectTableHelpers();
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.updatePaginatorInfo();
+
+    this.paginator.page.subscribe(() => this.updatePaginatorInfo());
   }
 
   navigateToAddEmployee(): void {
@@ -110,13 +116,11 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (!result) {
-        return;
-      }
+      if (!result) return;
 
       const updatedEmployee = result as Employee;
       this.employeeService.updateEmployee(updatedEmployee);
-      this.refreshTable();
+      this.reloadData();
       showEmployeeUpdatedToast(this.toastr, updatedEmployee);
     });
   }
@@ -131,12 +135,10 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
       cancelButtonText: 'Tidak',
       reverseButtons: true
     }).then(result => {
-      if (!result.isConfirmed) {
-        return;
-      }
+      if (!result.isConfirmed) return;
 
       this.employeeService.deleteEmployee(employee.id);
-      this.refreshTable();
+      this.reloadData();
       showEmployeeDeletedToast(this.toastr, employee);
     });
   }
@@ -148,16 +150,17 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
     });
 
     this.dataSource.data = this.getFilteredEmployees();
-    this.connectTableHelpers();
+    if (this.paginator) {
+      this.paginator.firstPage();
+    }
+    this.updatePaginatorInfo();
   }
 
   changePageSize(): void {
-    if (!this.paginator) {
-      return;
-    }
-
+    if (!this.paginator) return;
     this.paginator.pageSize = this.pageSize;
     this.paginator.firstPage();
+    this.updatePaginatorInfo();
   }
 
   private restoreFilters(): void {
@@ -170,31 +173,44 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
     this.dataSource.data = this.getFilteredEmployees();
   }
 
-  private refreshTable(): void {
+  private reloadData(): void {
+    const prev = this.dataSource.data.length;
     this.dataSource.data = this.getFilteredEmployees();
-    this.connectTableHelpers();
+    const curr = this.dataSource.data.length;
+
+    if (curr !== prev && this.paginator) {
+      this.paginator.firstPage();
+    }
+    this.updatePaginatorInfo();
   }
 
   private getFilteredEmployees(): Employee[] {
     return this.employeeService
       .getEmployees()
-      .filter(employee => this.matchesFilters(employee));
+      .filter(emp => this.matchesFilters(emp));
   }
 
   private matchesFilters(employee: Employee): boolean {
-    const usernameQuery = this.usernameFilter.toLowerCase();
-    const emailQuery = this.emailFilter.toLowerCase();
-
-    const usernameMatch = employee.username
-      .toLowerCase()
-      .includes(usernameQuery);
-    const emailMatch = employee.email.toLowerCase().includes(emailQuery);
-
-    return usernameMatch && emailMatch;
+    const u = this.usernameFilter.toLowerCase();
+    const e = this.emailFilter.toLowerCase();
+    return (
+      employee.username.toLowerCase().includes(u) &&
+      employee.email.toLowerCase().includes(e)
+    );
   }
 
-  private connectTableHelpers(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  private updatePaginatorInfo(): void {
+    if (!this.paginator) {
+      this.paginatorInfo = '';
+      return;
+    }
+    const total = this.dataSource.data.length;
+    if (total === 0) {
+      this.paginatorInfo = 'Tidak ada data';
+      return;
+    }
+    const start = this.paginator.pageIndex * this.paginator.pageSize + 1;
+    const end = Math.min(start + this.paginator.pageSize - 1, total);
+    this.paginatorInfo = `Menampilkan ${start} – ${end} dari ${total} data`;
   }
 }

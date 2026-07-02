@@ -1,9 +1,6 @@
 <main class="login-shell">
   <div class="login-bg-decor" aria-hidden="true"></div>
-
   <div class="login-card" role="region" aria-label="Login">
-
-    <!-- Brand Header -->
     <div class="login-brand">
       <div class="brand-mark" aria-hidden="true">
         <mat-icon>admin_panel_settings</mat-icon>
@@ -16,10 +13,7 @@
 
     <div class="login-divider"></div>
 
-    <!-- Form -->
     <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form" novalidate>
-
-      <!-- Username Field -->
       <div class="field-group">
         <label class="field-label" for="username">Username</label>
         <mat-form-field appearance="outline" class="field">
@@ -38,7 +32,6 @@
         </mat-form-field>
       </div>
 
-      <!-- Password Field -->
       <div class="field-group">
         <label class="field-label" for="password">Password</label>
         <mat-form-field appearance="outline" class="field">
@@ -68,13 +61,11 @@
         </mat-form-field>
       </div>
 
-      <!-- Error Banner -->
       <div *ngIf="errorMessage" class="error-banner" role="alert">
         <mat-icon class="error-icon" aria-hidden="true">error_outline</mat-icon>
         <span>{{ errorMessage }}</span>
       </div>
 
-      <!-- Submit Button -->
       <button
         mat-flat-button
         color="primary"
