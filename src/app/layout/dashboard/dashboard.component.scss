@@ -1,0 +1,35 @@
+.layout {
+  height: 100vh;
+}
+
+.sidebar {
+  width: var(--sidebar-w);
+  border-right: 1px solid var(--border);
+  background: var(--card);
+  transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+
+  &--collapsed {
+    width: var(--sidebar-mini-w);
+  }
+}
+
+:host ::ng-deep .mat-drawer-content {
+  transition: margin-left 0.28s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.content {
+  background: var(--bg);
+  min-height: calc(100vh - var(--topbar-h));
+  padding: 24px;
+}
+
+@media (max-width: 767px) {
+  .content {
+    padding: 16px;
+  }
+
+  .sidebar {
+    width: var(--sidebar-w) !important;
+  }
+}

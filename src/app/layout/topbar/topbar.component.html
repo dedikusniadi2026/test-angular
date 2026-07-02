@@ -1,0 +1,46 @@
+<header class="topbar">
+
+  <div class="topbar-left">
+    <button
+      mat-icon-button
+      class="menu-btn"
+      (click)="toggleDrawerClick()"
+      aria-label="Toggle sidebar"
+      matTooltip="Toggle sidebar">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div class="greeting">
+      <span class="greeting-title">Welcome back, {{ username }}</span>
+      <span class="greeting-sub">{{ dayName }}, {{ dateStr }}</span>
+    </div>
+  </div>
+
+  <div class="topbar-right">
+    <span class="user-chip">
+      <mat-icon class="user-chip-icon">person</mat-icon>
+      {{ username }}
+    </span>
+
+    <button
+      mat-icon-button
+      class="avatar-btn"
+      [matMenuTriggerFor]="profileMenu"
+      matTooltip="Account options"
+      aria-label="Account options">
+      <img src="https://i.pravatar.cc/100" alt="User avatar" class="avatar" />
+    </button>
+
+    <mat-menu #profileMenu="matMenu" xPosition="before">
+      <div class="menu-header">
+        <span class="menu-username">{{ username }}</span>
+        <span class="menu-role">Administrator</span>
+      </div>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon color="warn">logout</mat-icon>
+        <span>Sign Out</span>
+      </button>
+    </mat-menu>
+  </div>
+
+</header>

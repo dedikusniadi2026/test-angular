@@ -1,3 +1,4 @@
+/* ── Toast container position ── */
 #toast-container.toast-center {
   top: 50% !important;
   left: 50% !important;
@@ -8,6 +9,7 @@
   pointer-events: none;
 }
 
+/* ── Base toast card ── */
 #toast-container.toast-center .ngx-toastr {
   width: min(420px, calc(100vw - 32px));
   margin: 0;
@@ -29,6 +31,7 @@
   cursor: default;
 }
 
+/* ── Icon circle ── */
 #toast-container.toast-center .ngx-toastr::before {
   content: "";
   position: absolute;
@@ -43,6 +46,7 @@
   background-size: 16px;
 }
 
+/* ── Typography ── */
 #toast-container.toast-center .toast-title {
   font-size: 0.95rem;
   font-weight: 700;
@@ -56,6 +60,7 @@
   color: var(--muted, #64748b);
 }
 
+/* ── Close button ── */
 #toast-container.toast-center .toast-close-button {
   position: absolute;
   top: 10px;
@@ -74,46 +79,43 @@
   opacity: 1;
 }
 
+/* ── Progress bar ── */
 #toast-container.toast-center .toast-progress {
   height: 3px;
   opacity: 0.45;
 }
 
+/* ── Add: blue accent ── */
 .toast-add {
   border-left-color: #3b82f6 !important;
 }
-
 .toast-add::before {
   background-color: rgba(59, 130, 246, 0.12);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E");
 }
+.toast-add .toast-progress { background-color: #3b82f6 !important; }
 
-.toast-add .toast-progress {
-  background-color: #3b82f6 !important;
-}
-
+/* ── Edit: yellow/amber ── */
 .toast-edit {
   border-left-color: #f59e0b !important;
 }
-
 .toast-edit::before {
   background-color: rgba(245, 158, 11, 0.14);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f59e0b' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20h9'/%3E%3Cpath d='M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z'/%3E%3C/svg%3E");
 }
+.toast-edit .toast-progress { background-color: #f59e0b !important; }
 
-.toast-edit .toast-progress {
-  background-color: #f59e0b !important;
-}
-
+/* ── Delete: red ── */
 .toast-delete {
   border-left-color: #ef4444 !important;
 }
-
 .toast-delete::before {
   background-color: rgba(239, 68, 68, 0.12);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ef4444' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18'/%3E%3Cpath d='M8 6V4h8v2'/%3E%3Cpath d='M19 6l-1 14H6L5 6'/%3E%3Cpath d='M10 11v6'/%3E%3Cpath d='M14 11v6'/%3E%3C/svg%3E");
 }
+.toast-delete .toast-progress { background-color: #ef4444 !important; }
 
-.toast-delete .toast-progress {
-  background-color: #ef4444 !important;
-}
+/* ── Override ngx-toastr default bg colors so custom class wins ── */
+.toast-warning { background-color: var(--card, #fff) !important; }
+.toast-error   { background-color: var(--card, #fff) !important; }
+.toast-success { background-color: var(--card, #fff) !important; }

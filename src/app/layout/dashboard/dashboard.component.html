@@ -1,0 +1,28 @@
+<mat-sidenav-container class="layout" [hasBackdrop]="isMobile">
+
+  <mat-sidenav
+    [mode]="sidenavMode"
+    [opened]="sidebarOpen"
+    [fixedInViewport]="true"
+    class="sidebar"
+    [class.sidebar--collapsed]="sidebarCollapsed && !isMobile"
+    (closedStart)="sidebarOpen = false">
+
+    <app-sidebar
+      [collapsed]="sidebarCollapsed && !isMobile"
+      (toggleCollapse)="onToggleSidebar()">
+    </app-sidebar>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content [style.margin-left]="effectiveMargin">
+
+    <app-topbar (toggleDrawer)="onToggleSidebar()"></app-topbar>
+
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

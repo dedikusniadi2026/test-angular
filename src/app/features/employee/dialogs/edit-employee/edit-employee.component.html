@@ -1,0 +1,124 @@
+<div class="dialog-header">
+  <div class="dialog-avatar">
+    <mat-icon>edit</mat-icon>
+  </div>
+  <div class="dialog-header-info">
+    <h2 class="dialog-name">Edit Employee</h2>
+    <p class="dialog-meta">Update the employee information below</p>
+  </div>
+  <button mat-icon-button class="close-btn" (click)="close()" aria-label="Close">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content class="dialog-body">
+  <form [formGroup]="form" class="emp-form">
+
+    <div class="form-section-label">Identity</div>
+    <div class="form-grid">
+
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Username</mat-label>
+        <mat-icon matPrefix class="field-icon">badge</mat-icon>
+        <input matInput formControlName="username" placeholder="Enter username" />
+        <mat-error *ngIf="form.controls.username.hasError('required')">Username is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>First Name</mat-label>
+        <mat-icon matPrefix class="field-icon">person</mat-icon>
+        <input matInput formControlName="firstName" placeholder="Enter first name" />
+        <mat-error *ngIf="form.controls.firstName.hasError('required')">First name is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Last Name</mat-label>
+        <mat-icon matPrefix class="field-icon">person</mat-icon>
+        <input matInput formControlName="lastName" placeholder="Enter last name" />
+        <mat-error *ngIf="form.controls.lastName.hasError('required')">Last name is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Email</mat-label>
+        <mat-icon matPrefix class="field-icon">alternate_email</mat-icon>
+        <input matInput formControlName="email" placeholder="email@example.com" />
+        <mat-error *ngIf="form.controls.email.hasError('required')">Email is required</mat-error>
+        <mat-error *ngIf="form.controls.email.hasError('email')">Invalid email format</mat-error>
+      </mat-form-field>
+
+    </div>
+
+    <div class="form-section-label">Employment Details</div>
+    <div class="form-grid">
+
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Birth Date</mat-label>
+        <mat-icon matPrefix class="field-icon">cake</mat-icon>
+        <input matInput [matDatepicker]="birthPicker" [max]="maxDate" formControlName="birthDate" placeholder="Select date" />
+        <mat-datepicker-toggle matIconSuffix [for]="birthPicker"></mat-datepicker-toggle>
+        <mat-datepicker #birthPicker></mat-datepicker>
+        <mat-error *ngIf="form.controls.birthDate.hasError('required')">Birth date is required</mat-error>
+        <mat-error *ngIf="form.controls.birthDate.hasError('maxDate')">Birth date cannot be in the future</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Basic Salary</mat-label>
+        <mat-icon matPrefix class="field-icon">payments</mat-icon>
+        <span matTextPrefix class="currency-prefix">Rp&nbsp;</span>
+        <input matInput type="number" formControlName="basicSalary" placeholder="0" />
+        <mat-error *ngIf="form.controls.basicSalary.hasError('required')">Basic salary is required</mat-error>
+        <mat-error *ngIf="form.controls.basicSalary.hasError('pattern')">Basic salary must be a number</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Status</mat-label>
+        <mat-icon matPrefix class="field-icon">verified_user</mat-icon>
+        <mat-select formControlName="status">
+          <mat-option *ngFor="let s of statuses" [value]="s">{{ s }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.controls.status.hasError('required')">Status is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Group</mat-label>
+        <mat-icon matPrefix class="field-icon">groups</mat-icon>
+        <mat-select formControlName="group" (selectionChange)="onGroupSelected()">
+          <div class="group-search-wrap">
+            <input
+              class="group-search-input"
+              placeholder="Search group..."
+              [value]="groupSearch"
+              (input)="onGroupSearch($any($event.target).value)"
+              (click)="$event.stopPropagation()"
+              (keydown)="$event.stopPropagation()"
+              autocomplete="off" />
+          </div>
+          <mat-option *ngFor="let g of filteredGroups" [value]="g">{{ g }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.controls.group.hasError('required')">Group is required</mat-error>
+      </mat-form-field>
+
+    </div>
+
+    <div class="form-section-label">Description</div>
+    <mat-form-field appearance="outline" class="field field-full">
+      <mat-label>Description</mat-label>
+      <mat-icon matPrefix class="field-icon">notes</mat-icon>
+      <textarea matInput rows="3" formControlName="description" placeholder="Write a short description..."></textarea>
+      <mat-error *ngIf="form.controls.description.hasError('required')">Description is required</mat-error>
+    </mat-form-field>
+
+    <input type="hidden" formControlName="id" />
+  </form>
+</mat-dialog-content>
+
+<div class="dialog-footer">
+  <button mat-stroked-button class="btn-cancel" (click)="close()">
+    <mat-icon>close</mat-icon>
+    Cancel
+  </button>
+  <button mat-flat-button color="primary" class="btn-save" (click)="save()">
+    <mat-icon>save</mat-icon>
+    Save
+  </button>
+</div>

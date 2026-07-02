@@ -1,0 +1,202 @@
+:host { display: block; }
+
+.dialog-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 20px 16px;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+}
+
+.dialog-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  mat-icon { font-size: 22px; width: 22px; height: 22px; }
+}
+
+.dialog-header-info { flex: 1; min-width: 0; }
+
+.dialog-name {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dialog-meta {
+  margin: 3px 0 0;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: 500;
+}
+
+.close-btn {
+  color: rgba(255, 255, 255, 0.85);
+  flex-shrink: 0;
+  &:hover { color: #fff; background: rgba(255, 255, 255, 0.15); }
+}
+
+.dialog-body {
+  padding: 18px 20px 8px !important;
+  max-height: 55vh;
+  overflow-y: auto;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.info-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 11px 12px;
+  border-radius: 10px;
+  background: #f8fafc;
+  border: 1px solid #e8edf3;
+  transition: border-color 0.15s;
+
+  &:hover { border-color: #c7d2fe; }
+}
+
+.info-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  mat-icon { font-size: 16px; width: 16px; height: 16px; }
+}
+
+.email-icon  { background: #ede9fe; mat-icon { color: #7c3aed; } }
+.date-icon   { background: #fef3c7; mat-icon { color: #d97706; } }
+.salary-icon { background: #d1fae5; mat-icon { color: #059669; } }
+.group-icon  { background: #dbeafe; mat-icon { color: #2563eb; } }
+
+.info-text { min-width: 0; }
+
+.info-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #94a3b8;
+  margin-bottom: 3px;
+}
+
+.info-value {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #1e293b;
+  word-break: break-word;
+  line-height: 1.3;
+
+  &.salary { color: #059669; }
+}
+
+.status-row {
+  margin-bottom: 12px;
+  padding: 11px 12px;
+  background: #f8fafc;
+  border: 1px solid #e8edf3;
+  border-radius: 10px;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+
+  &.active   { background: #dcfce7; color: #166534; }
+  &.inactive { background: #fef2f2; color: #991b1b; }
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  .active &   { background: #22c55e; }
+  .inactive & { background: #ef4444; }
+}
+
+.desc-section {
+  background: #f8fafc;
+  border: 1px solid #e8edf3;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 6px;
+}
+
+.desc-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #94a3b8;
+  margin-bottom: 7px;
+}
+
+.desc-icon { font-size: 14px; width: 14px; height: 14px; color: #94a3b8; }
+
+.desc-text {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #475569;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 20px 16px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.btn-close {
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  height: 38px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #4f46e5 !important;
+  color: #fff !important;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.35);
+
+  mat-icon { font-size: 17px; width: 17px; height: 17px; color: #fff; }
+}
+
+@media (max-width: 500px) {
+  .dialog-header { padding: 16px 14px 12px; }
+  .dialog-body   { padding: 14px 14px 6px !important; max-height: 65vh; }
+  .dialog-footer { padding: 10px 14px 14px; }
+  .info-grid     { grid-template-columns: 1fr; }
+}
