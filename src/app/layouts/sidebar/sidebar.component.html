@@ -1,0 +1,63 @@
+<div class="sidebar-header" [class.sidebar-header--collapsed]="collapsed">
+
+  <!-- Expanded: logo + nama + tombol collapse -->
+  <ng-container *ngIf="!collapsed">
+    <mat-icon class="brand-icon">admin_panel_settings</mat-icon>
+    <span class="brand-name">Bank Mandiri</span>
+    <button
+      mat-icon-button
+      class="collapse-btn"
+      (click)="toggle()"
+      matTooltip="Collapse sidebar"
+      matTooltipPosition="right"
+      aria-label="Collapse sidebar">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+  </ng-container>
+
+  <!-- Collapsed: hanya tombol expand (posisi sama dengan icon nav item) -->
+  <ng-container *ngIf="collapsed">
+    <button
+      mat-icon-button
+      class="collapse-btn collapse-btn--rotated"
+      (click)="toggle()"
+      matTooltip="Expand sidebar"
+      matTooltipPosition="right"
+      aria-label="Expand sidebar">
+      <mat-icon>admin_panel_settings</mat-icon>
+    </button>
+  </ng-container>
+
+</div>
+
+<div class="nav-section-label" [class.nav-section-label--hidden]="collapsed">Main Menu</div>
+
+<mat-nav-list>
+  @for (menu of menus; track menu.title) {
+    <a
+      mat-list-item
+      [routerLink]="menu.link"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: menu.link === '/dashboard' }"
+      class="nav-item"
+      [class.nav-item--collapsed]="collapsed"
+      [matTooltip]="collapsed ? menu.title : ''"
+      matTooltipPosition="right">
+      <mat-icon>{{ menu.icon }}</mat-icon>
+      <span class="nav-title" [class.nav-title--hidden]="collapsed">{{ menu.title }}</span>
+    </a>
+  }
+</mat-nav-list>
+
+<div class="sidebar-footer" [class.sidebar-footer--collapsed]="collapsed">
+  <button
+    class="logout-btn"
+    [class.logout-btn--collapsed]="collapsed"
+    type="button"
+    (click)="logout()"
+    [matTooltip]="collapsed ? 'Logout' : ''"
+    matTooltipPosition="right">
+    <mat-icon>logout</mat-icon>
+    <span class="logout-text" [class.logout-text--hidden]="collapsed">Logout</span>
+  </button>
+</div>

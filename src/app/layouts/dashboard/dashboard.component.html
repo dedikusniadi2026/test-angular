@@ -1,0 +1,29 @@
+<mat-sidenav-container class="layout">
+
+  <mat-sidenav
+    mode="side"
+    [opened]="true"
+    [fixedInViewport]="true"
+    [disableClose]="true"
+    class="sidebar"
+    [class.sidebar--collapsed]="sidebarCollapsed">
+
+    <app-sidebar
+      [collapsed]="sidebarCollapsed"
+      (toggleCollapse)="onToggleSidebar()">
+    </app-sidebar>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content
+    [style.margin-left]="sidebarCollapsed ? 'var(--sidebar-mini-w)' : 'var(--sidebar-w)'">
+
+    <app-topbar (toggleDrawer)="onToggleSidebar()"></app-topbar>
+
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

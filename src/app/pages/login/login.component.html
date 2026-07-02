@@ -1,0 +1,49 @@
+<main class="login-shell">
+  <div class="login-card" role="region" aria-label="Login">
+    <div class="login-brand">
+      <div class="brand-mark" aria-hidden="true">
+        <mat-icon>admin_panel_settings</mat-icon>
+      </div>
+      <div>
+        <div class="brand-title">Employee Management</div>
+        <div class="brand-subtitle">Sign in to continue</div>
+      </div>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Username</mat-label>
+        <input matInput type="text" formControlName="username" />
+        <mat-error *ngIf="submitted && loginForm.controls.username.invalid">
+          Username wajib diisi
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" />
+        <mat-error *ngIf="submitted && loginForm.controls.password.invalid">
+          Password wajib diisi
+        </mat-error>
+      </mat-form-field>
+
+      <div *ngIf="errorMessage" class="error-banner" role="alert">
+        <mat-icon class="error-icon" aria-hidden="true">error</mat-icon>
+        <span>{{ errorMessage }}</span>
+      </div>
+
+      <button
+        mat-flat-button
+        color="primary"
+        class="login-btn"
+        type="submit"
+      >
+        Login
+      </button>
+    </form>
+
+    <div class="login-footnote">
+      By continuing, you agree to internal usage policy.
+    </div>
+  </div>
+</main>
