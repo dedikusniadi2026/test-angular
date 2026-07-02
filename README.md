@@ -1,10 +1,42 @@
 # EmployeeManagementMandiri
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.12.
+Aplikasi **Employee Management** yang dibuat menggunakan **Angular 21** dengan **Standalone Components** dan **SCSS**.
 
-## Development server
+## Requirements
 
-Untuk menjalankan aplikasi secara lokal, gunakan salah satu command berikut:
+Pastikan telah menginstall:
+
+* Node.js (sesuai requirement Angular 21)
+* npm
+* Angular CLI 21.x
+
+Cek versi:
+
+```bash
+node -v
+npm -v
+ng version
+```
+
+## Installation
+
+Clone repository kemudian install dependency:
+
+```bash
+npm install
+```
+
+## Default Login
+
+Gunakan akun berikut untuk masuk ke aplikasi:
+
+| Username  | Password     |
+| --------- | ------------ |
+| **admin** | **admin123** |
+
+## Development Server
+
+Untuk menjalankan aplikasi secara lokal, gunakan salah satu perintah berikut:
 
 ```bash
 npm run start
@@ -16,70 +48,77 @@ atau
 ng serve
 ```
 
-Once the server is running, buka browser ke alamat:
-- `http://localhost:4200/` (default)
+Setelah server berhasil dijalankan, buka browser:
 
-Catatan: jika port 4200 sedang dipakai, Angular akan menawarkan port lain.
+```
+http://localhost:4200
+```
 
-## Environment
+> **Catatan:** Jika port **4200** sedang digunakan, Angular akan otomatis menawarkan port lain.
 
-- Bahasa/Framework: Angular (standalone components) + SCSS
-- Build tool: Angular CLI
-- Node runtime: pastikan Node.js sudah ter-install (sesuaikan dengan requirement Angular CLI)
+## Project Stack
 
-## Build
+* Angular 21
+* Standalone Components
+* SCSS
+* Angular Material
+* Bootstrap
+* RxJS
+* TypeScript
 
-Untuk build production:
+## Build Production
+
+Untuk melakukan build production:
 
 ```bash
 ng build
 ```
 
-Catatan: artifact akan tersimpan di folder `dist/`.
+Hasil build akan tersimpan pada folder:
 
+```
+dist/
+```
 
-## Code scaffolding
+## Generate Component
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Membuat component baru:
 
 ```bash
 ng generate component component-name
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Untuk melihat seluruh schematic Angular CLI:
 
 ```bash
 ng generate --help
 ```
 
-## Building
+## Running Unit Test
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Menjalankan unit test menggunakan Vitest:
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
+## Running End-to-End Test
 
-For end-to-end (e2e) testing, run:
+Menjalankan e2e test:
 
 ```bash
 ng e2e
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Secara default Angular CLI tidak menyediakan framework e2e. Anda dapat menggunakan framework seperti:
+
+* Cypress
+* Playwright
 
 ## Additional Resources
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Dokumentasi resmi Angular CLI:
+
+* https://angular.dev/tools/cli
+
+Repository ini dibuat sebagai contoh aplikasi CRUD Employee Management menggunakan Angular 21 dengan autentikasi login, dashboard, responsive layout, sidebar, topbar, dan manajemen data karyawan.
