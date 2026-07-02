@@ -54,7 +54,8 @@
       <mat-form-field appearance="outline" class="field">
         <mat-label>Birth Date</mat-label>
         <mat-icon matPrefix class="field-icon">cake</mat-icon>
-        <input matInput [matDatepicker]="birthPicker" [max]="maxDate" formControlName="birthDate" placeholder="Select date" />
+        <input matInput [matDatepicker]="birthPicker" [max]="maxDate" formControlName="birthDate"
+          placeholder="Select date" [readonly]="true" />
         <mat-datepicker-toggle matIconSuffix [for]="birthPicker"></mat-datepicker-toggle>
         <mat-datepicker #birthPicker></mat-datepicker>
         <mat-error *ngIf="form.controls.birthDate.hasError('required')">Birth date is required</mat-error>
@@ -63,9 +64,10 @@
 
       <mat-form-field appearance="outline" class="field">
         <mat-label>Basic Salary</mat-label>
-        <mat-icon matPrefix class="field-icon">payments</mat-icon>
         <span matTextPrefix class="currency-prefix">Rp&nbsp;</span>
-        <input matInput type="number" formControlName="basicSalary" placeholder="0" />
+        <input matInput type="number" formControlName="basicSalary" placeholder="0"
+          (keydown)="$event.key === 'e' || $event.key === 'E' || $event.key === '+' || $event.key === '-' ? $event.preventDefault() : null" />
+        <mat-icon matSuffix class="field-icon">payments</mat-icon>
         <mat-error *ngIf="form.controls.basicSalary.hasError('required')">Basic salary is required</mat-error>
         <mat-error *ngIf="form.controls.basicSalary.hasError('pattern')">Basic salary must be a number</mat-error>
       </mat-form-field>
