@@ -1,4 +1,4 @@
-# EmployeeManagementMandiri
+# EmployeeManagement
 
 Aplikasi **Employee Management** yang dibuat menggunakan **Angular 21** dengan **Standalone Components** dan **SCSS**.
 
