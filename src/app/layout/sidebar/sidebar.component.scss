@@ -42,6 +42,14 @@
   flex-shrink: 0;
 }
 
+.brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  overflow: hidden;
+}
+
 .brand-name {
   font-size: 22px;
   font-weight: 750;

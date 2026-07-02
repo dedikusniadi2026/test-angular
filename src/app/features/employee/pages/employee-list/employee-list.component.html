@@ -3,74 +3,64 @@
   <div class="page-header">
     <div class="header-left">
       <h1 class="page-title">Employee List</h1>
-      <p class="page-subtitle">Manage your team members</p>
+      <p class="page-subtitle">Manage and overview all team members</p>
     </div>
-    <button
-      mat-flat-button
-      color="primary"
-      (click)="navigateToAddEmployee()"
-      class="add-btn">
-      <mat-icon>add</mat-icon>
+    <button mat-flat-button color="primary" (click)="navigateToAddEmployee()" class="add-btn">
+      <mat-icon>person_add</mat-icon>
       Add Employee
     </button>
   </div>
 
   <div class="filters-card">
     <div class="filters-row">
+
       <mat-form-field appearance="outline" class="filter-field">
-        <mat-label>Username</mat-label>
-        <input
-          matInput
-          [(ngModel)]="usernameFilter"
-          (input)="applyFilter()"
-          placeholder="Search username...">
-        <mat-icon matSuffix>search</mat-icon>
+        <mat-label>Search by Username</mat-label>
+        <mat-icon matPrefix class="filter-icon">manage_accounts</mat-icon>
+        <input matInput [(ngModel)]="usernameFilter" (input)="applyFilter()" placeholder="e.g. john_doe" />
+        <button *ngIf="usernameFilter" matSuffix mat-icon-button (click)="usernameFilter=''; applyFilter()" aria-label="Clear">
+          <mat-icon>close</mat-icon>
+        </button>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="filter-field">
-        <mat-label>Email</mat-label>
-        <input
-          matInput
-          [(ngModel)]="emailFilter"
-          (input)="applyFilter()"
-          placeholder="Search email...">
-        <mat-icon matSuffix>email</mat-icon>
+        <mat-label>Search by Email</mat-label>
+        <mat-icon matPrefix class="filter-icon">alternate_email</mat-icon>
+        <input matInput [(ngModel)]="emailFilter" (input)="applyFilter()" placeholder="e.g. john@example.com" />
+        <button *ngIf="emailFilter" matSuffix mat-icon-button (click)="emailFilter=''; applyFilter()" aria-label="Clear">
+          <mat-icon>close</mat-icon>
+        </button>
       </mat-form-field>
+
     </div>
   </div>
 
   <div class="table-container">
     <div class="table-responsive">
-      <table
-        mat-table
-        [dataSource]="dataSource"
-        matSort
-        class="employee-table">
+      <table mat-table [dataSource]="dataSource" matSort class="employee-table">
 
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-          <td mat-cell *matCellDef="let employee">
-            <span class="cell-id">#{{employee.id}}</span>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+          <td mat-cell *matCellDef="let e">
+            <span class="cell-id">#{{ e.id }}</span>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="username">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
-          <td mat-cell *matCellDef="let employee">
-            <span class="cell-username">{{employee.username}}</span>
+          <td mat-cell *matCellDef="let e">
+            <span class="cell-username">{{ e.username }}</span>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>Name</th>
-          <td mat-cell *matCellDef="let employee">
+          <td mat-cell *matCellDef="let e">
             <div class="cell-name">
-              <span class="avatar-initials">
-                {{employee.firstName.charAt(0)}}{{employee.lastName.charAt(0)}}
-              </span>
-              <div>
-                <div class="full-name">{{employee.firstName}} {{employee.lastName}}</div>
-                <div class="name-email-mobile">{{employee.email}}</div>
+              <span class="avatar-initials">{{ e.firstName.charAt(0) }}{{ e.lastName.charAt(0) }}</span>
+              <div class="name-info">
+                <div class="full-name">{{ e.firstName }} {{ e.lastName }}</div>
+                <div class="name-email-mobile">{{ e.email }}</div>
               </div>
             </div>
           </td>
@@ -78,50 +68,40 @@
 
         <ng-container matColumnDef="email">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-          <td mat-cell *matCellDef="let employee">{{employee.email}}</td>
+          <td mat-cell *matCellDef="let e">
+            <span class="cell-email">{{ e.email }}</span>
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-          <td mat-cell *matCellDef="let employee">
-            <span class="status-badge" [class.active]="employee.status==='Active'" [class.inactive]="employee.status==='Inactive'">
+          <td mat-cell *matCellDef="let e">
+            <span class="status-badge" [class.active]="e.status === 'Active'" [class.inactive]="e.status === 'Inactive'">
               <span class="status-dot"></span>
-              {{employee.status}}
+              {{ e.status }}
             </span>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="group">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Group</th>
-          <td mat-cell *matCellDef="let employee">
-            <span class="group-badge">{{employee.group}}</span>
+          <td mat-cell *matCellDef="let e">
+            <span class="group-badge">{{ e.group }}</span>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef class="action-header">Action</th>
-          <td mat-cell *matCellDef="let employee">
+          <th mat-header-cell *matHeaderCellDef class="action-header">Actions</th>
+          <td mat-cell *matCellDef="let e">
             <div class="action-buttons">
-              <button
-                mat-mini-fab
-                color="primary"
-                (click)="viewDetail(employee)"
-                matTooltip="View Details">
+              <button class="action-btn action-btn--view" (click)="viewDetail(e)" matTooltip="View Details" matTooltipPosition="above">
                 <mat-icon>visibility</mat-icon>
               </button>
-              <button
-                mat-mini-fab
-                color="accent"
-                (click)="editEmployee(employee)"
-                matTooltip="Edit Employee">
+              <button class="action-btn action-btn--edit" (click)="editEmployee(e)" matTooltip="Edit Employee" matTooltipPosition="above">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button
-                mat-mini-fab
-                color="warn"
-                (click)="deleteEmployee(employee)"
-                matTooltip="Delete Employee">
-                <mat-icon>delete</mat-icon>
+              <button class="action-btn action-btn--delete" (click)="deleteEmployee(e)" matTooltip="Delete Employee" matTooltipPosition="above">
+                <mat-icon>delete_outline</mat-icon>
               </button>
             </div>
           </td>
@@ -133,9 +113,12 @@
       </table>
     </div>
 
-    <div *ngIf="dataSource.data.length===0" class="empty-state">
-      <mat-icon class="empty-icon">people_outline</mat-icon>
-      <p class="empty-text">No employees found</p>
+    <div *ngIf="dataSource.data.length === 0" class="empty-state">
+      <div class="empty-icon-wrap">
+        <mat-icon>people_outline</mat-icon>
+      </div>
+      <p class="empty-title">No employees found</p>
+      <p class="empty-sub">Try adjusting your search filters</p>
     </div>
 
     <div class="paginator-footer">

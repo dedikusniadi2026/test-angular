@@ -5,7 +5,7 @@
 
     <div class="login-brand">
       <div class="brand-mark" aria-hidden="true">
-        <mat-icon>admin_panel_settings</mat-icon>
+        <mat-icon>shield</mat-icon>
       </div>
       <div>
         <div class="brand-title">Employee Management</div>
@@ -20,15 +20,9 @@
       <div class="field-group">
         <label class="field-label" for="username">Username</label>
         <mat-form-field appearance="outline" class="field">
-          <input
-            matInput
-            id="username"
-            type="text"
-            formControlName="username"
-            placeholder="Enter your username"
-            autocomplete="username"
-          />
-          <mat-icon matPrefix class="field-prefix-icon">person_outline</mat-icon>
+          <input matInput id="username" type="text" formControlName="username"
+            placeholder="Enter your username" autocomplete="username" />
+          <mat-icon matPrefix class="field-prefix-icon">account_circle</mat-icon>
           <mat-error *ngIf="submitted && loginForm.controls.username.invalid">
             Username is required
           </mat-error>
@@ -38,24 +32,13 @@
       <div class="field-group">
         <label class="field-label" for="password">Password</label>
         <mat-form-field appearance="outline" class="field">
-          <input
-            matInput
-            id="password"
-            [type]="showPassword ? 'text' : 'password'"
-            formControlName="password"
-            placeholder="Enter your password"
-            autocomplete="current-password"
-          />
-          <mat-icon matPrefix class="field-prefix-icon">lock_outline</mat-icon>
-          <button
-            matSuffix
-            mat-icon-button
-            type="button"
-            class="toggle-password-btn"
+          <input matInput id="password" [type]="showPassword ? 'text' : 'password'"
+            formControlName="password" placeholder="Enter your password" autocomplete="current-password" />
+          <mat-icon matPrefix class="field-prefix-icon">lock</mat-icon>
+          <button matSuffix mat-icon-button type="button" class="toggle-password-btn"
             (click)="showPassword = !showPassword"
             [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
-            [attr.aria-pressed]="showPassword"
-          >
+            [attr.aria-pressed]="showPassword">
             <mat-icon>{{ showPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
           </button>
           <mat-error *ngIf="submitted && loginForm.controls.password.invalid">

@@ -32,8 +32,8 @@ export class SidebarComponent {
 
     menus = [
         {
-            icon: 'groups',
-            title: 'Staff',
+            icon: 'badge',
+            title: 'Employees',
             link: '/employees'
         },
     ];
