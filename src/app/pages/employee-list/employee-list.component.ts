@@ -7,10 +7,9 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -25,8 +24,9 @@ import Swal from 'sweetalert2';
 import { Employee } from '../../models/employee';
 import { EmployeeService } from '../../services/employee.service';
 import { EditEmployeeComponent } from '../edit-employee/edit-employee.component';
+import { EmployeeDetailDialogComponent } from '../employee-detail/employee-detail-dialog.component';
+import { AddEmployeeDialogComponent } from '../add-employee/add-employee-dialog.component';
 import {
-  APP_ROUTES,
   DEFAULT_PAGE_SIZE,
   PAGE_SIZE_OPTIONS
 } from '../../constants/employee.constants';
@@ -36,7 +36,8 @@ import {
 } from '../../utils/employee-filter.storage';
 import {
   showEmployeeDeletedToast,
-  showEmployeeUpdatedToast
+  showEmployeeUpdatedToast,
+  showEmployeeAddedToast
 } from '../../utils/employee-toast';
 
 @Component({
@@ -60,7 +61,6 @@ import {
 })
 export class EmployeeListComponent implements OnInit, AfterViewInit {
   private readonly employeeService = inject(EmployeeService);
-  private readonly router = inject(Router);
   private readonly toastr = inject(ToastrService);
   private readonly dialog = inject(MatDialog);
 
@@ -101,11 +101,29 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
   }
 
   navigateToAddEmployee(): void {
-    this.router.navigate([APP_ROUTES.addEmployee]);
+    const dialogRef = this.dialog.open(AddEmployeeDialogComponent, {
+      width: '680px',
+      maxWidth: '95vw',
+      disableClose: true,
+      panelClass: 'employee-form-dialog'
+    });
+
+    dialogRef.afterClosed().subscribe((result: Omit<Employee, 'id'> | undefined) => {
+      if (!result) return;
+      // Service akan assign id otomatis
+      this.employeeService.addEmployee(result as Employee);
+      this.reloadData();
+      showEmployeeAddedToast(this.toastr, result);
+    });
   }
 
   viewDetail(employee: Employee): void {
-    this.router.navigate([APP_ROUTES.employeeDetail(employee.id)]);
+    this.dialog.open(EmployeeDetailDialogComponent, {
+      width: '560px',
+      maxWidth: '95vw',
+      data: { employee },
+      panelClass: 'employee-detail-dialog'
+    });
   }
 
   editEmployee(employee: Employee): void {
@@ -127,12 +145,12 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
 
   deleteEmployee(employee: Employee): void {
     Swal.fire({
-      title: 'Apakah anda yakin ingin menghapus data tersebut?',
-      text: `Employee: ${employee.firstName} ${employee.lastName}`,
+      title: 'Delete Employee?',
+      text: `${employee.firstName} ${employee.lastName} will be permanently removed.`,
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Ya, hapus',
-      cancelButtonText: 'Tidak',
+      confirmButtonText: 'Yes, delete',
+      cancelButtonText: 'Cancel',
       reverseButtons: true
     }).then(result => {
       if (!result.isConfirmed) return;
@@ -206,11 +224,11 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
     }
     const total = this.dataSource.data.length;
     if (total === 0) {
-      this.paginatorInfo = 'Tidak ada data';
+      this.paginatorInfo = 'No records found';
       return;
     }
     const start = this.paginator.pageIndex * this.paginator.pageSize + 1;
     const end = Math.min(start + this.paginator.pageSize - 1, total);
-    this.paginatorInfo = `Menampilkan ${start} – ${end} dari ${total} data`;
+    this.paginatorInfo = `Showing ${start} – ${end} of ${total} records`;
   }
 }

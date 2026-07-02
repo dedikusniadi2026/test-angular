@@ -1,18 +1,16 @@
-<!-- ── Header ── -->
 <div class="dialog-header">
   <div class="dialog-avatar">
-    <mat-icon>edit</mat-icon>
+    <mat-icon>person_add</mat-icon>
   </div>
   <div class="dialog-header-info">
-    <h2 class="dialog-name">Edit Employee</h2>
-    <p class="dialog-meta">Update the employee information below</p>
+    <h2 class="dialog-name">Add Employee</h2>
+    <p class="dialog-meta">Fill in all the employee information below</p>
   </div>
   <button mat-icon-button class="close-btn" (click)="close()" aria-label="Close">
     <mat-icon>close</mat-icon>
   </button>
 </div>
 
-<!-- ── Body ── -->
 <mat-dialog-content class="dialog-body">
   <form [formGroup]="form" class="emp-form">
 
@@ -110,11 +108,9 @@
       <mat-error *ngIf="form.controls.description.hasError('required')">Description is required</mat-error>
     </mat-form-field>
 
-    <input type="hidden" formControlName="id" />
   </form>
 </mat-dialog-content>
 
-<!-- ── Footer ── -->
 <div class="dialog-footer">
   <button mat-stroked-button class="btn-cancel" (click)="close()">
     <mat-icon>close</mat-icon>

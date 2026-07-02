@@ -1,6 +1,5 @@
 :host { display: block; }
 
-/* ── Header ── */
 .dialog-header {
   display: flex;
   align-items: center;
@@ -46,7 +45,6 @@
   &:hover { color: #fff; background: rgba(255, 255, 255, 0.15); }
 }
 
-/* ── Body ── */
 .dialog-body {
   padding: 20px 22px 8px !important;
   max-height: 62vh;
@@ -98,7 +96,6 @@
   font-weight: 600;
 }
 
-/* Group search inside mat-select */
 .group-search-wrap {
   padding: 8px 12px 4px;
   position: sticky;
@@ -118,7 +115,6 @@
   &:focus { border-color: #6366f1; }
 }
 
-/* ── Footer ── */
 .dialog-footer {
   display: flex;
   justify-content: flex-end;
